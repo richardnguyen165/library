@@ -28,7 +28,7 @@ let myLibrary = [
 */
 
 // Universal code, helps load the library and the sort setting
-myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [
+let myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [
   new Book('Harry Potter and the Sorcerer\'s Stone', 'J.K. Rowling', 309, 1997),
   new Book('To Kill a Mockingbird', 'Harper Lee', 281, 1960),
   new Book('1984', 'George Orwell', 328, 1949),
