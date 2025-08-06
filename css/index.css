@@ -174,7 +174,7 @@ h1, h2, h3, h4, h5, h6 {
 
   width: 80%;
 
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   row-gap: 50px;
   column-gap: 50px;
 }
@@ -188,7 +188,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: white;
 
   border-radius: 10px;
-  width: 200px;
+  width: 300px;
   height: 300px;
   padding: 5px;
 }
@@ -266,10 +266,13 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
 
   width: 30vw;
-  height: 50vh;
   background-color: white;
   border-radius: 100px;
   gap: 3vh
+}
+
+.add-modal{
+  height: 50vh;
 }
 
 .add-title{
@@ -306,7 +309,9 @@ h1, h2, h3, h4, h5, h6 {
   gap:20px;
 }
 
-
+.sort-modal{
+  height: 55vh;
+}
 /*SORTING*/
 
 /*MODALS*/
