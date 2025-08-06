@@ -28,6 +28,10 @@ let myLibrary = [
 */
 
 let myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
+let sortMode = JSON.parse(localStorage.getItem('sort'));
+if (sortMode){
+  sortLibraryBooks();
+}
 
 const addButton = document.querySelector('.content-action-add');
 
@@ -241,7 +245,8 @@ function sortLibraryBooksModal(){
 
   const sortRef = document.querySelector('.modal-sort-book-button');
   sortRef.addEventListener('click', () => {
-    sortLibraryBooks();});
+    sortLibraryBooks();
+  });
 } 
 
 function sortLibraryBooks(){
@@ -250,19 +255,26 @@ function sortLibraryBooks(){
   const pagesOptionRef = document.querySelector('#pages');
   const pubYearOptionRef = document.querySelector('#publishing_year');
 
-  if (titleOptionRef.checked){
+  if ((titleOptionRef && titleOptionRef.checked) || sortMode === 'title'){
     myLibrary.sort((a, b) => sortByTitle(a, b));
+    sortMode = 'title';
   }
-  else if (authorOptionRef.checked){
+  else if ((authorOptionRef && authorOptionRef.checked) || sortMode === 'author'){
     myLibrary.sort((a, b) => sortByAuthor(a , b));
+    sortMode = 'author';
   }
-  else if (pagesOptionRef.checked){
+  else if ((pagesOptionRef && pagesOptionRef.checked) || sortMode === 'pages'){
     myLibrary.sort((a, b) => a.pages - b.pages);
+    sortMode = 'pages';
   }
-  else if (pubYearOptionRef.checked){
+  else if ((pubYearOptionRef && pubYearOptionRef.checked) || sortMode === 'publishing_year'){
     myLibrary.sort((a, b) => a.publishYear - b.publishYear);
+    sortMode = 'publishing_year';
   }
-  removeModal('.sort-modal-container')
+  localStorage.setItem('sort', JSON.stringify(sortMode));
+  if (document.querySelector('.sort-modal-container')){
+    removeModal('.sort-modal-container');
+  }
   displayBooks();
 }
 
