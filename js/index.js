@@ -3,6 +3,8 @@
 
 
 /*
+This is the starter library for the user
+
 let myLibrary = [
   new Book('Harry Potter and the Sorcerer\'s Stone', 'J.K. Rowling', 309, 1997),
   new Book('To Kill a Mockingbird', 'Harper Lee', 281, 1960),
@@ -27,6 +29,7 @@ let myLibrary = [
 ];
 */
 
+// Universal code, helps load the library and the sort setting
 myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
 let sortMode = JSON.parse(localStorage.getItem('sort'));
 if (sortMode){
@@ -35,6 +38,7 @@ if (sortMode){
 displayBooks();
 
 
+// References and event listenets to add and sort buttons
 const addButton = document.querySelector('.content-action-add');
 
 addButton.addEventListener('click', () => addBookToLibraryModal());
@@ -43,6 +47,7 @@ const sortButton = document.querySelector('.content-action-sort');
 
 sortButton.addEventListener('click', () => sortLibraryBooksModal());
 
+// Book object
 function Book(title, author, pages, publishYear, read = false) {
   // the constructor...
   this.title = title;
@@ -54,11 +59,15 @@ function Book(title, author, pages, publishYear, read = false) {
   this.date = JSON.stringify(new Date());
 }
 
+// Creates a modal that allows the user to interact with in order to add a book
 function addBookToLibraryModal(){
+  // Referring to the body, and adding the modal
   const bodyRef = document.querySelector('body');
   bodyRef.classList.add('stop-scrolling');
   const bodyRefDivModal = document.createElement('div');
   bodyRefDivModal.classList.add('add-modal-container');
+
+  // Modal html
   const modalHTML = 
   `
   <div class = "add-modal">
@@ -93,9 +102,12 @@ function addBookToLibraryModal(){
     </div>
   </div>
   `;
+
+  // Adding the modal
   bodyRefDivModal.innerHTML = modalHTML;
   bodyRef.appendChild(bodyRefDivModal);
 
+  // References for cancel and add buttons
   const addButtonRef = document.querySelector('.modal-add-book-button');
   const cancelButtonRef = document.querySelector('.modal-cancel-book-button');
 
@@ -131,6 +143,7 @@ function addBookToLibraryModal(){
   })
 }
 
+// Function responsible for removing a modal, can work with the sort or add modal
 function removeModal(modalClass){
   const modalRef = document.querySelector(modalClass);
   const bodyRef = document.querySelector('body');
@@ -138,6 +151,7 @@ function removeModal(modalClass){
   modalRef.remove();
 }
 
+// Adding book to library action, redirects to displayBooks()
 function addBookToLibrary(newBook) {
   // take params, create a book then store it in the array
   myLibrary.push(newBook);
@@ -145,14 +159,20 @@ function addBookToLibrary(newBook) {
   displayBooks();
 }
 
+// Display books in content-grid
 function displayBooks() {
+  // Clears content grid
   const contentGridRef = document.querySelector('.content-grid');
   contentGridRef.innerHTML = '';
+
+  // Iterates through myLibrary array, showing each one and generating HTML as well as adding event listeners to each 'card'
   for (let personBook of myLibrary){
     const newCard = document.createElement('div');
     newCard.classList.add('outerCardClass');
     newCard.classList.add(`card-${personBook.id}`);
-    // Outer div -> not 
+    // Outer div -> does not have possition absolute, allows it to work with other cards
+
+    // Card html
     const newCardHTML =
     `
     <div class = "card">
@@ -188,6 +208,7 @@ function displayBooks() {
     newCard.innerHTML = newCardHTML;
     contentGridRef.append(newCard);
 
+    // Action for read/unread button
     const readButtonRef = document.querySelector(`.read-status-${personBook.id}`);
     readButtonRef.addEventListener('click', () => {
       personBook.read = !personBook.read;
@@ -195,6 +216,7 @@ function displayBooks() {
       displayBooks();
     });
 
+    // Action for cancel button
     const cancelButtonRef = document.querySelector(`.cancel-button-${personBook.id}`);
     cancelButtonRef.addEventListener('click', () => {
       myLibrary = myLibrary.filter(deleteBook => deleteBook.id !== personBook.id);
@@ -204,11 +226,15 @@ function displayBooks() {
   }
 }
 
+// Funtion responsible for giving 5 sort options
 function sortLibraryBooksModal(){
   const bodyRef = document.querySelector('body');
+  // Prevents user from scrolling when modal appears
   bodyRef.classList.add('stop-scrolling');
   const bodyRefDivModal = document.createElement('div');
   bodyRefDivModal.classList.add('sort-modal-container');
+
+  // Sort html
   const modalHTML = 
   `
   <div class = "sort-modal">
@@ -252,6 +278,7 @@ function sortLibraryBooksModal(){
   bodyRefDivModal.innerHTML = modalHTML;
   bodyRef.appendChild(bodyRefDivModal);
 
+  // Cancel and sort button actions
   const cancelRef = document.querySelector('.modal-cancel-sort-book-button');
   cancelRef.addEventListener('click', () => removeModal('.sort-modal-container'));
 
@@ -261,27 +288,42 @@ function sortLibraryBooksModal(){
   });
 } 
 
+// Responsible for doing the actual sorting of the books
 function sortLibraryBooks(){
+
+  // Get each input box, and check if they are checked
   const titleOptionRef = document.querySelector('#title');
   const authorOptionRef = document.querySelector('#author');
   const pagesOptionRef = document.querySelector('#pages');
   const pubYearOptionRef = document.querySelector('#publishing_year');
   const dateOptionRef = document.querySelector('#date');
 
-  if (pagesOptionRef){
-    console.log(titleOptionRef.checked);
-    console.log(authorOptionRef.checked);
-    console.log(pagesOptionRef.checked);
-  }
-
+  // Explanation for coditional: either the input box exists and it has been checked, or it does not exist but the sort mode saved is equal to that mode
   if ((titleOptionRef && titleOptionRef.checked) || (!titleOptionRef && sortMode === 'title')){
-    myLibrary.sort((a, b) => sortByTitle(a, b));
+    myLibrary.sort((a, b)  => {
+      if (a.title < b.title){
+          return -1;
+        }
+        else if (a.title > b.title){
+          return 1;
+        }
+        return 0;
+      }
+    );
     sortMode = 'title';
   }
   else if ((authorOptionRef && authorOptionRef.checked) || (!authorOptionRef && sortMode === 'author')){
-    myLibrary.sort((a, b) => sortByAuthor(a , b));
+    myLibrary.sort((a, b) =>  {
+      if (a.author < b.author){
+        return -1;
+      }
+      else if (a.author > b.author){
+        return 1;
+      }
+      return 0;;
+    });
     sortMode = 'author';
-  }
+  } 
   else if ((pagesOptionRef && pagesOptionRef.checked) || (!pagesOptionRef && sortMode === 'pages')){
     myLibrary.sort((a, b) => a.pages - b.pages);
     sortMode = 'pages';
@@ -295,28 +337,9 @@ function sortLibraryBooks(){
     sortMode = 'date';
   }
   localStorage.setItem('sort', JSON.stringify(sortMode));
+  // Incase if they are loading the books
   if (document.querySelector('.sort-modal-container')){
     removeModal('.sort-modal-container');
   }
   displayBooks();
-}
-
-function sortByTitle(a , b){
-  if (a.title < b.title){
-    return -1;
-  }
-  else if (a.title > b.title){
-    return 1;
-  }
-  return 0;
-}
-
-function sortByAuthor(a, b){
-  if (a.author < b.author){
-    return -1;
-  }
-  else if (a.author > b.author){
-    return 1;
-  }
-  return 0;
 }

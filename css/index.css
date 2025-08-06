@@ -64,6 +64,7 @@ h1, h2, h3, h4, h5, h6 {
   font-display: swap;
 }
 
+/* UNIVERSAL FONT (not for logo) */
 *{
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
@@ -121,10 +122,10 @@ h1, h2, h3, h4, h5, h6 {
   height: 80px;
 }
 
-
 /*HEADER*/
 
 /*CONTENT*/
+
 .content-container{
   display: grid;
   grid-row: 2 / 3;
