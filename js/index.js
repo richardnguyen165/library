@@ -28,8 +28,29 @@ let myLibrary = [
 */
 
 // Universal code, helps load the library and the sort setting
-myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
-let sortMode = JSON.parse(localStorage.getItem('sort'));
+myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [
+  new Book('Harry Potter and the Sorcerer\'s Stone', 'J.K. Rowling', 309, 1997),
+  new Book('To Kill a Mockingbird', 'Harper Lee', 281, 1960),
+  new Book('1984', 'George Orwell', 328, 1949),
+  new Book('The Great Gatsby', 'F. Scott Fitzgerald', 180, 1925),
+  new Book('The Hobbit', 'J.R.R. Tolkien', 310, 1937),
+  new Book('A Tale of Two Cities', 'Charles Dickens', 489, 1859),
+  new Book('The Silent Forest', 'Ava Norwood', 276, 2019),
+  new Book('Echoes of Tomorrow', 'Riley Quinn', 312, 2023),
+  new Book('The Paper Castle', 'Lena Harrow', 354, 2021),
+  new Book('Dreamers of the Deep', 'C. J. Wren', 298, 2022),
+  new Book('A Clockwork Orange', 'Anthony Burgess', 192, 1962),
+  new Book('Moss and Stone', 'Serena Vale', 275, 2020),
+  new Book('The Midnight Library', 'Matt Haig', 304, 2020),
+  new Book('Fahrenheit 451', 'Ray Bradbury', 194, 1953),
+  new Book('Whispers in the Wind', 'Morgan Elms', 332, 2024),
+  new Book('The Last Horizon', 'Elliot Kane', 361, 2025),
+  new Book('Pride and Prejudice', 'Jane Austen', 279, 1813),
+  new Book('Brave New World', 'Aldous Huxley', 268, 1932),
+  new Book('The Forgotten Code', 'Zane Rook', 387, 2023),
+  new Book('Crimson Rivers', 'Isla Maren', 310, 2024)
+];
+let sortMode = JSON.parse(localStorage.getItem('sort')) || 'date';
 if (sortMode){
   sortLibraryBooks();
 }
