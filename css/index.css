@@ -241,11 +241,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /*MODALS*/
 
-.stop-scrolling{
-  overflow: hidden;
-}
+/*ADDING BOOK*/
 
-.add-modal-container{
+.add-modal-container, .sort-modal-container{
   background-color: rgba(145, 143, 144, 0.65);
 
   position: fixed;
@@ -259,7 +257,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
 }
 
-.add-modal{
+.add-modal, .sort-modal{
   position: absolute;
 
   display: flex;
@@ -293,5 +291,22 @@ h1, h2, h3, h4, h5, h6 {
 .outerCardClass{
   position: relative;
 }
+
+.modal-add-book-button, .modal-cancel-book-button, .modal-sort-book-button, .modal-cancel-sort-book-button{
+  cursor: pointer;
+}
+
+/*ADDING BOOK*/
+
+/*SORTING*/
+
+.sort-input{
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+}
+
+
+/*SORTING*/
 
 /*MODALS*/

@@ -27,7 +27,10 @@ const addButton = document.querySelector('.content-action-add');
 
 addButton.addEventListener('click', () => addBookToLibraryModal());
 
-/*add genre as a bonus*/ 
+const sortButton = document.querySelector('.content-action-sort');
+
+sortButton.addEventListener('click', () => sortLibraryBooksModal());
+
 function Book(title, author, pages, publishYear, read = false) {
   // the constructor...
   this.title = title;
@@ -85,7 +88,7 @@ function addBookToLibraryModal(){
 
   // Cancel action
 
-  cancelButtonRef.addEventListener('click', () => removeModal());
+  cancelButtonRef.addEventListener('click', () => removeModal('.add-modal-container'));
 
   // Add action
 
@@ -108,16 +111,17 @@ function addBookToLibraryModal(){
       alert('Publishing year input blank!');
     }
     else{
-      removeModal();
+      removeModal('.add-modal-container');
       const newBook = new Book(titleInputRef.value, authorInputRef.value, pagesInputRef.value, publishYearInputRef.value);
       addBookToLibrary(newBook);
     }
   })
 }
 
-
-function removeModal(){
-  const modalRef = document.querySelector('.add-modal-container');
+function removeModal(modalClass){
+  const modalRef = document.querySelector(modalClass);
+  const bodyRef = document.querySelector('body');
+  bodyRef.classList.remove('stop-scrolling');
   modalRef.remove();
 }
 
@@ -178,6 +182,99 @@ function displayBooks() {
       displayBooks();
     });
   }
+}
+
+function sortLibraryBooksModal(){
+  const bodyRef = document.querySelector('body');
+  bodyRef.classList.add('stop-scrolling');
+  const bodyRefDivModal = document.createElement('div');
+  bodyRefDivModal.classList.add('sort-modal-container');
+  const modalHTML = 
+  `
+  <div class = "sort-modal">
+    <div class = "sort-title">
+      <p>Sort Books</p>
+    </div>
+
+    <div class = "sort-input">
+      <div class = "sort-input-block">
+        <p>Sort By Book Titles (A-Z)</p>
+        <input type = "radio" name = "sort" id = "title" checked/>
+      </div>
+
+      <div class = "sort-input-block">
+        <p>Sort By Author</p>
+        <input type = "radio" name = "sort" id = "author"/>
+      </div>
+
+      <div class = "sort-input-block">
+        <p>Sort By Pages</p>
+        <input type = "radio" name = "sort" id = "pages"/>
+      </div>
+
+      <div class = "sort-input-block">
+        <p>Sort By Publishing Year</p>
+        <input type = "radio" name = "sort" id = "publishing_year"/>
+      </div>
+    </div>
+
+    <div>
+      <button class = "modal-sort-book-button">Sort</button>
+      <button class = "modal-cancel-sort-book-button">Cancel</button>
+    </div>
+  </div>
+  `;
+  bodyRefDivModal.innerHTML = modalHTML;
+  bodyRef.appendChild(bodyRefDivModal);
+
+  const cancelRef = document.querySelector('.modal-cancel-sort-book-button');
+  cancelRef.addEventListener('click', () => removeModal('.sort-modal-container'));
+
+  const sortRef = document.querySelector('.modal-sort-book-button');
+  sortRef.addEventListener('click', () => {
+    sortLibraryBooks();});
+} 
+
+function sortLibraryBooks(){
+  const titleOptionRef = document.querySelector('#title');
+  const authorOptionRef = document.querySelector('#author');
+  const pagesOptionRef = document.querySelector('#pages');
+  const pubYearOptionRef = document.querySelector('#publishing_year');
+
+  if (titleOptionRef.checked){
+    myLibrary.sort((a, b) => sortByTitle(a, b));
+  }
+  else if (authorOptionRef.checked){
+    myLibrary.sort((a, b) => sortByAuthor(a , b));
+  }
+  else if (pagesOptionRef.checked){
+    myLibrary.sort((a, b) => a.pages - b.pages);
+  }
+  else if (pubYearOptionRef.checked){
+    myLibrary.sort((a, b) => a.publishYear - b.publishYear);
+  }
+  removeModal('.sort-modal-container')
+  displayBooks();
+}
+
+function sortByTitle(a , b){
+  if (a.title < b.title){
+    return -1;
+  }
+  else if (a.title > b.title){
+    return 1;
+  }
+  return 0;
+}
+
+function sortByAuthor(a, b){
+  if (a.author < b.author){
+    return -1;
+  }
+  else if (a.author > b.author){
+    return 1;
+  }
+  return 0;
 }
 
 displayBooks();
