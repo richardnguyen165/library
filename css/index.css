@@ -69,21 +69,49 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
-.container{
+/*MULTI-SELECTORS -> USED TO SIMPLIFY CODE*/
+
+.header-logo, .content, .content-action, .outerCardClass, .card, .add-modal-container, .sort-modal-container,
+.add-modal, .sort-modal, .add-input, .input-field, .sort-input{
+  display: flex;
+}
+
+.content, .header-logo, .outerCardClass, .add-modal, .sort-modal, .add-modal-container, .sort-modal-container{
+  align-items: center;
+  justify-content: center;
+}
+
+.header-image, .header-logo, .cancel-button{
+  position: absolute;
+}
+
+.container, .content-grid, .content-container, .header-container, .content-grid{
   display: grid;
+}
+
+.content, .card, .add-modal, .sort-modal, .add-input, .input-field, .sort-input{
+  flex-direction: column;
+}
+
+.modal-add-book-button, .modal-cancel-book-button, .modal-sort-book-button, .modal-cancel-sort-book-button, .content-action-add, .content-action-sort, .cancel-button, .read-button{
+  cursor: pointer;
+}
+
+.header, .card, .outerCardClass{
+  position: relative;
+}
+
+/*MULTI-SELECTORS -> USED TO SIMPLIFY CODE*/
+
+.container{
   grid-template-rows: 15vh 1fr;
   grid-template-columns: 1fr;
 }
 
 /*HEADER*/
 
-.header-container{ 
-  display: grid;
+.header-container{
   grid-row: 1 / 2;
-}
-
-.header{
-  position: relative;
 }
 
 .header-image{
@@ -91,7 +119,6 @@ h1, h2, h3, h4, h5, h6 {
   width: 100vw;
   object-fit: cover;
 
-  position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
@@ -99,7 +126,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header-logo{
-  position: absolute;
   top: 0;
   bottom: 0;
   left: 30%;
@@ -107,10 +133,6 @@ h1, h2, h3, h4, h5, h6 {
 
   background-color: rgba(145, 143, 144, 0.65);
   color: white;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .header-logo > p {
@@ -127,36 +149,27 @@ h1, h2, h3, h4, h5, h6 {
 /*CONTENT*/
 
 .content-container{
-  display: grid;
   grid-row: 2 / 3;
 }
 
 .content{
   background-color: burlywood;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 5vh;
   padding: 2vh;
 }
 
 .content-action{
-  display: flex;
   flex-wrap: wrap;
   gap: 50px;
 }
 
 .content-action > button{
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   background-color: green;
   color: white;
   border: none;
   border-radius: 10px;
   padding: 10px;
   width: 100px;
-  cursor: pointer;
 }
 
 .content-title{
@@ -165,7 +178,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content-grid{
-  display: grid;
 
   border: 1px solid brown;
   border-radius: 10px;
@@ -180,10 +192,9 @@ h1, h2, h3, h4, h5, h6 {
   column-gap: 50px;
 }
 
+/*BOOK CARD*/
+
 .outerCardClass{
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
 
   background-color: white;
@@ -195,18 +206,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card{
-  position: relative;
   width: inherit;
   height: inherit;
-
-  display: flex;
-  flex-direction: column;
   gap: 30px;
 }
 
 .read, .unread{
   color: white;
-  cursor: pointer;
   border: none;
   border-radius: 5px;
 }
@@ -224,7 +230,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cancel-button{
-  position: absolute;
   border: none;
   border-radius: 16px;
   width: 32px;
@@ -234,9 +239,9 @@ h1, h2, h3, h4, h5, h6 {
   left: -20px;
   
   background-color: rgba(177, 168, 172, 0.55);
-  cursor: pointer;
 }
 
+/*BOOK CARD*/
 
 /*CONTENT*/
 
@@ -252,20 +257,9 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 0;
   left: 0;
   right: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .add-modal, .sort-modal{
-  position: absolute;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
   width: 30vw;
   background-color: white;
   border-radius: 100px;
@@ -281,32 +275,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .add-input{
-  display: flex;
-  flex-direction: column;
   gap: 20px;
 }
 
 .input-field{
-  display: flex;
-  flex-direction: column;
   align-items: center;
 }
 
-.outerCardClass{
-  position: relative;
-}
-
-.modal-add-book-button, .modal-cancel-book-button, .modal-sort-book-button, .modal-cancel-sort-book-button{
-  cursor: pointer;
-}
-
-/*ADDING BOOK*/
+/*ADDING*/
 
 /*SORTING*/
 
 .sort-input{
-  display: flex;
-  flex-direction: column;
   gap:20px;
 }
 

@@ -199,10 +199,10 @@ function displayBooks() {
       </div>
 
       <div class = "card-buttons-${personBook.id}">
-        <button class = "read-status-${personBook.id} ${personBook.read ? 'read' : 'unread'}">${personBook.read ? '<img src = ./svg/book-open-blank-variant-outline.svg>' : '<img src = ./svg/book.svg>'}${personBook.read ? 'READ' : 'UNREAD'}</button>
+        <button class = "read-button read-status-${personBook.id} ${personBook.read ? 'read' : 'unread'}">${personBook.read ? '<img src = ./images/book-open-blank-variant-outline.svg>' : '<img src = ./images/book.svg>'}${personBook.read ? 'READ' : 'UNREAD'}</button>
       </div>
 
-      <button class = "cancel-button-${personBook.id} cancel-button"><img src = ./svg/close-sm-svgrepo-com.svg></button>
+      <button class = "cancel-button-${personBook.id} cancel-button"><img src = ./images/close-sm-svgrepo-com.svg></button>
     </div>
     `;
     newCard.innerHTML = newCardHTML;
